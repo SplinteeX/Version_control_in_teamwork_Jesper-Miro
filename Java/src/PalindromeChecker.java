@@ -3,36 +3,43 @@ import java.util.Scanner;
 public class PalindromeChecker {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        System.out.println("Enter a string:");
+        String userInput = scanner.nextLine();
 
-        String transformed = transformInput(input);
+        String sanitizedInput = sanitizeInput(userInput);
 
-        boolean isPalindrome = checkPalindrome(transformed);
+        boolean isPalindrome = checkPalindrome(sanitizedInput);
         if (isPalindrome) {
-            System.out.println("The transformed input is a palindrome.");
+            System.out.println("The sanitized input is a palindrome.");
         } else {
-            System.out.println("The transformed input is not a palindrome.");
+            System.out.println("The sanitized input is not a palindrome.");
         }
     }
 
-    public static String transformInput(String input) {
-        input = input.toLowerCase();
-        input = input.replace(",", "");
-        input = input.replace("!", "");
-        return input;
+    // Sanitize user input: convert to lowercase and remove punctuation
+    public static String sanitizeInput(String userInput) {
+        userInput = userInput.toLowerCase();
+        userInput = removePunctuation(userInput);
+        return userInput;
     }
 
+    // Remove punctuation marks from the input string
+    public static String removePunctuation(String userInput) {
+        return userInput.replaceAll("[^a-zA-Z]", "");
+    }
+
+    // Check if the input is a palindrome
     public static boolean checkPalindrome(String input) {
-        String reversed = reverseString(input);
-        if (input.equals(reversed)) {
+        if (input.length() <= 1) {
             return true;
-        } else {
-            return false;
         }
+
+        String reversed = reverseString(input);
+        return input.equals(reversed);
     }
 
+    // Reverse the input string
     public static String reverseString(String input) {
         StringBuilder reversed = new StringBuilder();
         for (int i = input.length() - 1; i >= 0; i--) {
