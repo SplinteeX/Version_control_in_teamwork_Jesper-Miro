@@ -11,42 +11,42 @@ public class PalindromeChecker {
         String input = scanner.nextLine();
 
         // Transform the input string for palindrome checking
-        String transformed = transformInput(input);
+        String transformed = sanitizeInput(input);
 
         // Check if the transformed input is a palindrome
         boolean isPalindrome = checkPalindrome(transformed);
 
         // Display the result based on whether the input is a palindrome or not
         if (isPalindrome) {
-            System.out.println("The transformed input is a palindrome.");
+            System.out.println("The sanitized input is a palindrome.");
         } else {
-            System.out.println("The transformed input is not a palindrome.");
+            System.out.println("The sanitized input is not a palindrome.");
         }
     }
-
-    // Method to transform the input string for palindrome checking
-    public static String transformInput(String input) {
-        // Convert the input to lowercase
-        input = input.toLowerCase();
-
-        // Remove commas and exclamation marks from the input
-        input = input.replace(",", "");
-        input = input.replace("!", "");
-
-        // Return the transformed input
-        return input;
+    // Sanitize user input: convert to lowercase and remove punctuation
+    public static String sanitizeInput(String userInput) {
+        userInput = userInput.toLowerCase();
+        userInput = removePunctuation(userInput);
+        return userInput;
     }
 
-    // Method to check if a string is a palindrome
-    public static boolean checkPalindrome(String input) {
-        // Get the reversed version of the input string
-        String reversed = reverseString(input);
+    // Remove punctuation marks from the input string
+    public static String removePunctuation(String userInput) {
+        return userInput.replaceAll("[^a-zA-Z]", "");
+    }
 
-        // Check if the input string is equal to its reversed version
+    // Check if the input is a palindrome
+    public static boolean checkPalindrome(String input) {
+        if (input.length() <= 1) {
+            return true;
+        }
+
+        String reversed = reverseString(input);
         return input.equals(reversed);
     }
 
-    // Method to reverse a string
+    // Reverse the input string
+
     public static String reverseString(String input) {
         // Use StringBuilder to efficiently build the reversed string
         StringBuilder reversed = new StringBuilder();
