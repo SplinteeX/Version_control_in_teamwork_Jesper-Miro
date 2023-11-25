@@ -3,20 +3,26 @@ import java.util.Scanner;
 public class PalindromeChecker {
 
     public static void main(String[] args) {
+        // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a string:");
-        String userInput = scanner.nextLine();
 
-        String sanitizedInput = sanitizeInput(userInput);
+        // Prompt the user to enter a string
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
 
-        boolean isPalindrome = checkPalindrome(sanitizedInput);
+        // Transform the input string for palindrome checking
+        String transformed = sanitizeInput(input);
+
+        // Check if the transformed input is a palindrome
+        boolean isPalindrome = checkPalindrome(transformed);
+
+        // Display the result based on whether the input is a palindrome or not
         if (isPalindrome) {
             System.out.println("The sanitized input is a palindrome.");
         } else {
             System.out.println("The sanitized input is not a palindrome.");
         }
     }
-
     // Sanitize user input: convert to lowercase and remove punctuation
     public static String sanitizeInput(String userInput) {
         userInput = userInput.toLowerCase();
@@ -40,11 +46,17 @@ public class PalindromeChecker {
     }
 
     // Reverse the input string
+
     public static String reverseString(String input) {
+        // Use StringBuilder to efficiently build the reversed string
         StringBuilder reversed = new StringBuilder();
+
+        // Iterate through the input string in reverse and append each character
         for (int i = input.length() - 1; i >= 0; i--) {
             reversed.append(input.charAt(i));
         }
+
+        // Return the reversed string
         return reversed.toString();
     }
 }
